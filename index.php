@@ -21,19 +21,19 @@
     <form action="send.php" method="post" class="col-lg-4 pt-3 pb-3" style="margin: 0 auto; border-radius: 10px; border: 3px solid #dc3545;">
       <div class="form-group">
         <label for="sendto">To:</label>
-        <input type="email" class="form-control" name= "sendto" id="sendto" placeholder="Enter email">
+        <input type="email" class="form-control" name= "sendto" placeholder="Enter email">
       </div>
       <div class="form-group">
         <label for="youremail">From:</label>
-        <input type="email" class="form-control" name= "youremail" id="youremail" placeholder="Enter your email">
+        <input type="email" class="form-control" name= "youremail" placeholder="Enter your email">
       </div>
       <div class="form-group">
         <label for="object">Object:</label>
-        <input type="text" class="form-control" name= "object" id="object" placeholder="Enter the object">
+        <input type="text" class="form-control" name= "object" placeholder="Enter the object">
       </div>
       <div class="form-group">
         <label for="msg">Message:</label>
-        <textarea class="form-control" name= "msg" id="msg" placeholder="Enter the message"></textarea>
+        <textarea class="form-control" name= "msg" placeholder="Enter the message"></textarea>
       </div>
 
       <!--Google reCAPTCHA checkbox-->
