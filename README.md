@@ -1,5 +1,5 @@
 # SendEmail
-PHP script to send email to anyone. Include **Bootstrap** and **Google reCAPTCHA v2**.
+PHP script to send email to anyone. Includes **Bootstrap** and **Google reCAPTCHA v2**.
 
 ## Screenshots
 
