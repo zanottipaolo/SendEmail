@@ -15,6 +15,7 @@
   </head>
   <body class="p-3 mb-2 bg-dark text-white">
     <?php
+      require_once("db.php");
 
       // controllo della risposta dell'utente (chiamata POST, file JSON decodificato)
       if(isset($_POST['g-recaptcha-response'])){
@@ -27,7 +28,13 @@
 
         //Se il Google reCAPTCHA è stato risolto allora si può inviare l'email
         if($responseKeys["success"]) {
-          if(isset($_POST['submit'])){
+          if (!filter_var($_POST['sendto'], FILTER_VALIDATE_EMAIL)) {
+              echo '<h3 class="text-center">Recipient email is invalid</h3>';
+          }
+          elseif (!filter_var($_POST['youremail'], FILTER_VALIDATE_EMAIL)) {
+              echo '<h3 class="text-center">Your email address is invalid</h3>';
+          }
+          elseif(isset($_POST['sendto'])){
             $to      = $_POST['sendto'];
             $subject = $_POST['object'];
             $message = $_POST['msg'];
@@ -36,8 +43,15 @@
             $sendmail = mail($to, $subject, $message, $headers);
 
             //Controllo se l'email è stata inviata o meno
-            if($sendmail)
-              echo '<h3 class="text-center">Email sent</h3>';
+            if($sendmail) {
+                //Inserisco l'email nel database
+                $timestamp = time();
+                $stmt = $db->prepare("INSERT INTO emails_log (sender, recipient, message, timestamp, ip_address) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssis", $_POST['youremail'], $_POST['sendto'], $_POST['msg'], $timestamp, $_SERVER['REMOTE_ADDR']);
+                $stmt->execute();
+                $stmt->close();
+                echo '<h3 class="text-center">Email sent</h3>';
+            }
             else
               echo '<h3 class="text-center">Email not sent, try again</h3>';
           }
